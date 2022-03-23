@@ -1,4 +1,4 @@
-import React, { Component, memo, PureComponent } from 'react';
+import React, { Component, createRef, memo, PureComponent } from 'react';
 
 // class PureCompo extends PureComponent {
 //     render() {
@@ -26,25 +26,29 @@ class PureCompo extends PureComponent {
             name: ""
         }
         this.counter = 0
+        this.myInput = createRef()
     }
 
     handleChangeName = () => {
         this.setState({
-            name: document.getElementById('myInput').value
+            name: this.myInput.current.value
         })
+    }
+    componentDidMount(){
+        this.myInput.current.focus()
     }
     render() {
         return (
             <div className="form-fa-geoup text-center mt-4 p-3">
                 <h4 className="text-center text-dark">حدس کلمه</h4>
-                <input type="text" autoComplete='off' id='myInput'
-                    className='form-control' />
+                <input type="text" autoComplete='off' 
+                    className='form-control' ref={this.myInput}/>
                 <button className='btn btn-warning my-3'
                     onClick={this.handleChangeName}>
                     ثبت
                 </button>
                 <button className='btn btn-secondary my-3 mx-2'
-                    onClick={() => { document.getElementById('myInput').value = "" }} >
+                    onClick={() => {this.myInput.current.value = "" }} >
                     مخفی
                 </button>
                 <br />

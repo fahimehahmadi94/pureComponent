@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PureCompo from './PureComponent';
 
 // class ParentCompo extends Component {
@@ -27,10 +27,21 @@ import PureCompo from './PureComponent';
 //     }
 // }
 class ParentCompo extends Component {
+    constructor() {
+        super()
+        this.componentRef = createRef();
+    }
+    handelChangeComponentName=()=>{
+        this.componentRef.current.handleChangeName();
+    }
     render() {
         return (
             <div>
-                <PureCompo />
+                <PureCompo ref={this.componentRef}/>
+                <button className='btn btn-info me-4'
+                onClick={this.handelChangeComponentName}>
+                    test
+                </button>
             </div>
         );
     }
